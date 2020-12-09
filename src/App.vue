@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Header/>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -15,5 +16,7 @@ export default {
 </script>
 
 <style>
-
+.content {
+    margin-top: 5%;
+}
 </style>
