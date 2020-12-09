@@ -9,5 +9,10 @@ export const routes = [
         path: '/coins',
         name: 'Coins',
         component: () => import(/* webpackChunkName: "coins"*/ './components/Stock.vue')
-    }
+    },
+    {
+        path: '/portfolio',
+        name: 'Portfolio',
+        component: () => import(/* webpackChunkName: "portfolio"*/ './components/Portfolio.vue')
+    },    
 ];

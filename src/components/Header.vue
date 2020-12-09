@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <router-link class="nav-link text-white" to="/coins">My actives</router-link>
+        <router-link class="nav-link text-white" to="/portfolio">Portfolio</router-link>
       </li>
       <li class="nav-item">
         <router-link class="nav-link text-white" to="/coins">Buy coins</router-link>
