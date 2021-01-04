@@ -7,32 +7,20 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <router-link class="nav-link text-white" to="/portfolio">Portfolio</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link class="nav-link text-white" to="/coins">Buy coins</router-link>
+        <router-link class="nav-link text-white" to="/assets">Assets</router-link>
       </li>
     </ul>
     <span class="navbar-text text-white">
-      Balance: {{getBalance}}
+      Balance: {{balance | formatCurrency}}
     </span>
   </div>
 </nav>
 </template>
 <script>
 export default {
-  data() {
-    return {
-      balance: 10000
-    }
-  },
   computed: {
-    getBalance() {
-      let formatter = new Intl.NumberFormat('en', {
-        style: 'currency',
-        currency: 'USD'
-      });
-      return formatter.format(this.balance);
+    balance() {
+      return this.$store.state.balance
     }
   }
 }

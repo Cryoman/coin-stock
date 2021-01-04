@@ -6,13 +6,8 @@ export const routes = [
         component: Main
     },
     {
-        path: '/coins',
-        name: 'Coins',
-        component: () => import(/* webpackChunkName: "coins"*/ './components/Stock.vue')
-    },
-    {
-        path: '/portfolio',
-        name: 'Portfolio',
-        component: () => import(/* webpackChunkName: "portfolio"*/ './components/Portfolio.vue')
+        path: '/assets',
+        name: 'Assets',
+        component: () => import(/* webpackChunkName: "assets"*/ './components/Assets.vue')
     },    
 ];
