@@ -1,5 +1,8 @@
 <template>
-  <div class="container">
+<div v-if="path == 'SignIn' || path == 'SignUp'">
+  <component :is="path"/>
+</div>
+  <div class="container" v-else>
     <Header/>
     <router-view></router-view>
   </div>
@@ -7,10 +10,19 @@
 
 <script>
 import Header from './components/Header';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 
 export default {
   components: {
-    Header
+    Header,
+    SignIn,
+    SignUp
+  },
+  computed: {
+    path() {
+      return this.$route.name
+    }
   },
 }
 </script>

@@ -4,6 +4,10 @@ import VueRouter from 'vue-router';
 import { routes } from './routes';
 import { store } from './store/store';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+
 Vue.mixin({
   filters: {
     formatCurrency(cur) {
@@ -25,8 +29,26 @@ const router = new VueRouter({
 
 Vue.config.productionTip = false
 
-new Vue({
-  store,
-  router,
-  render: h => h(App),
-}).$mount('#app')
+const firebaseConfig = {
+  apiKey: "AIzaSyA1q_QIGRwZXFifxhIzu_XhZpTlAscCxgM",
+  authDomain: "coinstock-training.firebaseapp.com",
+  projectId: "coinstock-training",
+  storageBucket: "coinstock-training.appspot.com",
+  messagingSenderId: "292120335818",
+  appId: "1:292120335818:web:05cc00189ba5cff51feb33",
+  measurementId: "G-22GK64DQJJ"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+let app; //Присваивает себе экземпляр Вью, чтобы в дальнейшем повторно не инициализировать приложение *
+
+firebase.auth().onAuthStateChanged(() => {
+  if (!app) {
+    app = new Vue({ //*
+      store,
+      router,
+      render: h => h(App),
+    }).$mount('#app')
+  }
+})

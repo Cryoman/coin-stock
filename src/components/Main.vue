@@ -26,14 +26,22 @@
             Bitcoin
           </td>
           <td>
-            {{ currentPrice | formatCurrency }}
+            {{ price | formatCurrency }}
           </td>
           <td>-</td>
           <td>
-            <input type="number" name="" id="" v-model="buyCount" min="0" step="0.1" placeholder="0"/>
+            <input
+              type="number"
+              name=""
+              id=""
+              v-model="buyCount"
+              min="0"
+              step="0.1"
+              placeholder="0"
+            />
             <button
               class="btn btn-primary"
-              :disabled="currentPrice * buyCount > $store.state.balance"
+              :disabled="$store.state.currentPrice * buyCount > $store.getters.user.balance"
               @click="buy"
             >
               Buy
@@ -46,42 +54,34 @@
 </template>
 <script>
 import VisualChart from "./VisualChart";
-import axios from "axios";
+import getCurrentPrice from "../getCurrentPrice";
 export default {
   components: {
     VisualChart,
   },
   data() {
     return {
-      currentPrice: 0,
       buyCount: 0,
     };
   },
   mounted() {
-    this.getCurrentRatio();
+    getCurrentPrice(this.$store);
+  },
+  computed: {
+    price() {
+      return this.$store.state.currentPrice;
+    }
   },
   methods: {
-    buy() {
-      this.$store.commit("buy", {
-        buyCount: this.buyCount * this.currentPrice,
+    async buy() {
+      await this.$store.dispatch("buy", {
+        balance: this.$store.getters.user.balance,
+        ownAssets: this.$store.getters.user.ownAssets,
+        buyCount: this.buyCount * this.$store.state.currentPrice,
         amount: +this.buyCount,
       });
-    },
-    getCurrentRatio() {
-      axios
-        .get("https://api.coindesk.com/v1/bpi/currentprice.json")
-        .then((response) => {
-          this.currentPrice = response.data.bpi.USD.rate_float;
-          this.$store.dispatch("getCurrentPrice", this.currentPrice);
-        });
-      setInterval(() => {
-        axios
-          .get("https://api.coindesk.com/v1/bpi/currentprice.json")
-          .then((response) => {
-            this.currentPrice = response.data.bpi.USD.rate_float;
-            this.$store.dispatch("getCurrentPrice", this.currentPrice);
-          });
-      }, 30000);
+      await this.$store.dispatch("fetchInfo");
+      this.buyCount = 0;
     },
   },
 };
