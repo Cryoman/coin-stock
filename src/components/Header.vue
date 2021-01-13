@@ -14,7 +14,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active dropdown" v-if="!name">
+        <li class="nav-item active dropdown" v-if="(!name || name === 'Guest')">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -24,32 +24,32 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            Sign In/Sign Up
+           {{ `${$t('login')}/${$t('register')}`}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link class="dropdown-item" to="/signin">Sign In</router-link>
+            <router-link class="dropdown-item" to="/signin">{{$t('login')}}</router-link>
             <div class="dropdown-divider"></div>
-            <router-link class="dropdown-item" to="/signup">Sign Up</router-link>
+            <router-link class="dropdown-item" to="/signup">{{$t('register')}}</router-link>
           </div>
         </li>
         <li class="nav-item" v-else>
           <router-link class="nav-link text-white" style="cursor: default" @click.prevent="" to=""
-            >{{`Hello, ${name}`}}</router-link
+            >{{`${$t('greeting')} ${name}`}}</router-link
           >
         </li>
         <li class="nav-item" v-if="name">
           <router-link class="nav-link text-white" to="/assets"
-            >Assets</router-link
+            >{{$t('assets')}}</router-link
           >
         </li>
         <li class="nav-item" v-if="name">
-          <a class="nav-link text-white" style="cursor: pointer" @click.prevent="logout" to="#"
-            >Sign Out</a
+          <a class="nav-link text-white" style="cursor: pointer" @click.prevent="logout"
+            >{{$t('logout')}}</a
           >
         </li>
       </ul>
       <span class="navbar-text text-white">
-        Balance: {{ balance | formatCurrency }}
+        {{`${$t('balance')}: `}} {{balance | formatCurrency}}
       </span>
     </div>
   </nav>

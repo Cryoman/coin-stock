@@ -1,9 +1,9 @@
 <template>
   <div class="content">
-    <h2>Your Assets</h2>
+    <h2>{{$t('yourAssets')}}</h2>
     <pre>
         Bitcoin: {{ +getAssets.toFixed(3) }}
-        Total assets sum: {{ getTotalAssets | formatCurrency }}
+        {{`${$t('total')}: `}} {{ getTotalAssets | formatCurrency }}
     </pre>
     <form class="form-inline">
       <div class="form-group mx-sm-3">
@@ -21,13 +21,15 @@
         :disabled="sellCount > getAssets"
         @click.prevent="sell"
       >
-        Sell
+        {{$t('sellButton')}}
       </button>
     </form>
+    <br>
+          <button class="btn btn-warning" @click="check">Check</button>
   </div>
 </template>
 <script>
-import getCurrentPrice from "../getCurrentPrice";
+
 export default {
   data() {
     return {
@@ -44,10 +46,6 @@ export default {
   },
   methods: {
     async sell() {
-      // this.$store.commit("sell", {
-      //   sellCount: this.sellCount * this.$store.state.currentPrice,
-      //   amount: +this.sellCount,
-      // });
       await this.$store.dispatch("sell", {
         balance: this.$store.getters.user.balance,
         ownAssets: this.$store.getters.user.ownAssets,
@@ -57,11 +55,9 @@ export default {
       await this.$store.dispatch("fetchInfo");
       this.sellCount = 0;
   },
-    },
-  mounted() {
-    if(!this.$store.currentPrice) {
-      getCurrentPrice(this.$store);
-    }
+  async check() {
+    await this.$store.dispatch('visualize', this.$store.getters.getCurrent)
   }
+    },
 };
 </script>

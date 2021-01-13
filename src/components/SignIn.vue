@@ -37,6 +37,7 @@ export default {
         async submitLogin() {
             try {
                 await this.$store.dispatch('login', {email: this.email, password: this.password});
+                await this.$store.dispatch('fetchInfo')
                 this.$router.push('/')
             }
             catch(e) {

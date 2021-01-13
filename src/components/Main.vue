@@ -1,19 +1,21 @@
 <template>
   <div class="content">
-    <h3>Check your trading skills</h3>
+    <h3>{{ $t("descHeader") }}</h3>
     <hr />
     <p>
-      Use your own virtual bank account buying and selling coins for real-time
-      ratio and find out how much profit you able to get!
+      {{ $t("desc") }}
     </p>
-    <VisualChart></VisualChart>
+    <VisualChart v-if="currentData" :currentData="currentData"></VisualChart>
+    <div v-else class="d-flex justify-content-center">
+      <div class="spinner-border text-info"></div>
+    </div>
     <table>
       <thead>
         <tr>
-          <td>Asset</td>
-          <td>Price</td>
-          <td>Dynamic</td>
-          <td>Buy coins</td>
+          <td>{{ $t("asset") }}</td>
+          <td>{{ $t("price") }}</td>
+          <td>{{ $t("dynamic") }}</td>
+          <td>{{ $t("buyCoins") }}</td>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +30,9 @@
           <td>
             {{ price | formatCurrency }}
           </td>
-          <td>-</td>
+          <td :style="{ color: dynamic > 0 ? 'green' : 'red' }">
+            {{ dynamic !== "-" ? `${dynamic}%` : dynamic }}
+          </td>
           <td>
             <input
               type="number"
@@ -41,10 +45,13 @@
             />
             <button
               class="btn btn-primary"
-              :disabled="$store.state.currentPrice * buyCount > $store.getters.user.balance"
+              :disabled="
+                $store.state.currentPrice * buyCount >
+                $store.getters.user.balance
+              "
               @click="buy"
             >
-              Buy
+              {{ $t("buyButton") }}
             </button>
           </td>
         </tr>
@@ -54,7 +61,6 @@
 </template>
 <script>
 import VisualChart from "./VisualChart";
-import getCurrentPrice from "../getCurrentPrice";
 export default {
   components: {
     VisualChart,
@@ -64,13 +70,16 @@ export default {
       buyCount: 0,
     };
   },
-  mounted() {
-    getCurrentPrice(this.$store);
-  },
   computed: {
     price() {
-      return this.$store.state.currentPrice;
-    }
+      return this.$store.getters.getCurrent;
+    },
+    currentData() {
+      return this.$store.getters.getVisualData;
+    },
+    dynamic() {
+      return this.$store.getters.getDynamic;
+    },
   },
   methods: {
     async buy() {
@@ -79,6 +88,7 @@ export default {
         ownAssets: this.$store.getters.user.ownAssets,
         buyCount: this.buyCount * this.$store.state.currentPrice,
         amount: +this.buyCount,
+        controlPrice: this.$store.state.currentPrice,
       });
       await this.$store.dispatch("fetchInfo");
       this.buyCount = 0;

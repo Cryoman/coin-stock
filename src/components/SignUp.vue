@@ -45,6 +45,7 @@ export default {
         async submitRegister() {
             try {
                 await this.$store.dispatch('registration', {email: this.email, password: this.password, name: this.name});
+                await this.$store.dispatch('fetchInfo');
                 this.$router.push("/");
             }
             catch(e) {

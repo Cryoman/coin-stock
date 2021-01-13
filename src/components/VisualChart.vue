@@ -9,28 +9,41 @@ export default {
   components: {
     chart,
   },
+  props: ['currentData'],
   data() {
     return {
       dataCollection: null,
     };
   },
-  mounted() {
-    this.fillData();
+  computed: {
+  },
+   mounted() {
+    //await this.$store.dispatch('drawChart')
+      this.fillData(this.currentData)
   },
   methods: {
-    fillData() {
+    getVisualData() {
+      this.$store.dispatch("drawChart");
+    },
+    fillData(val) {
+      console.log("Data from chart")
       this.dataCollection = {
-        labels: ["", "", "", "", "", "", ""],
+        labels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
         datasets: [
           {
             label: "Bitcoin",
-            data: [33130.56, 33138.40, 33124.49, 33066.77, 32959.25, 32662.98, 32729.89],
+            data: val,
             borderColor: "darkorange",
             backgroundColor: "rgba(0, 0, 0, 0)",
           },
-        ]
+        ],
       };
     },
   },
+  watch: {
+    currentData(oldval, newval) {
+      this.fillData(newval);
+    }
+  }
 };
 </script>

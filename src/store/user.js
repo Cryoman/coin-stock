@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 export default {
     state: {
         user: {
-            
+
         }
     },
     getters: {
@@ -25,8 +25,13 @@ export default {
         async fetchInfo({dispatch, commit}) {
             try {
                 const uid = await dispatch('getUid');
+                if(uid) {
                 const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val()
                 commit('setInfo', info);
+                } else {
+                    commit('setInfo', {role: 'Guest'})
+                }
+                
             }
             catch(e) {
                 console.log(e)
