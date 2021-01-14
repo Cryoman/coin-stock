@@ -24,8 +24,6 @@
         {{$t('sellButton')}}
       </button>
     </form>
-    <br>
-          <button class="btn btn-warning" @click="check">Check</button>
   </div>
 </template>
 <script>
