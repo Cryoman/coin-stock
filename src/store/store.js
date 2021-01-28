@@ -22,7 +22,7 @@ export const store = new Vuex.Store({
             return state.visualizeData;
         },
         getDynamic(state) {
-            if (state.controlPrice >= 0) {
+            if (state.controlPrice > 0) {
                 if (state.controlPrice > state.currentPrice) {
                     return ((state.currentPrice - state.controlPrice) / state.controlPrice * 100).toFixed(2);
                 }
@@ -53,6 +53,8 @@ export const store = new Vuex.Store({
             if(uid) {
             const controlPrice = (await firebase.database().ref(`/users/${uid}/info/controlPrice`).once('value')).val();
             commit('setControlPrice', controlPrice)
+            } else {
+                commit('setControlPrice', 0)
             }
         },
         async buy({ dispatch }, { balance, ownAssets, buyCount, amount, controlPrice }) {
