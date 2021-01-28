@@ -40,7 +40,6 @@ export const store = new Vuex.Store({
             state.currentPrice = current;
         },
         setVisualData(state, currentVisual) {
-            //console.log('mutation called')
             state.visualizeData = currentVisual;
         },
         setControlPrice(state, cp) {

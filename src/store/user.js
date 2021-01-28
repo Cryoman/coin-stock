@@ -19,6 +19,7 @@ export default {
         },
         clearUser(state) {
             state.user = {};
+            state.user.role = 'Guest';
         }
     },
     actions: {

@@ -78,7 +78,7 @@ export default {
       return this.$store.getters.getVisualData;
     },
     dynamic() {
-      return this.$store.getters.getDynamic;
+      return this.$store.getters.getDynamic || '-';
     },
   },
   methods: {
