@@ -22,7 +22,7 @@ export const store = new Vuex.Store({
             return state.visualizeData;
         },
         getDynamic(state) {
-            if (state.controlPrice > 0) {
+            if (state.controlPrice >= 0) {
                 if (state.controlPrice > state.currentPrice) {
                     return ((state.currentPrice - state.controlPrice) / state.controlPrice * 100).toFixed(2);
                 }

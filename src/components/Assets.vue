@@ -6,7 +6,7 @@
         {{`${$t('total')}: `}} {{ getTotalAssets | formatCurrency }}
     </pre>
     <form class="form-inline">
-      <div class="form-group mx-sm-3">
+
         <input
           type="number"
           class="form-control"
@@ -15,7 +15,7 @@
           placeholder="0"
           v-model="sellCount"
         />
-      </div>
+
       <button
         class="btn btn-danger"
         :disabled="sellCount > getAssets"
@@ -59,3 +59,18 @@ export default {
     },
 };
 </script>
+<style scoped>
+button {
+  margin-left: 10px;
+}
+@media (max-width: 768px) {
+  .form-inline input {
+    margin: 10px 0;
+  }
+  
+  .form-inline {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>

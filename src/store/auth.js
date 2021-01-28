@@ -14,6 +14,9 @@ export default {
                     ownAssets,
                     controlPrice
                 })
+                await firebase.database().ref(`/users/${uid}/rates`).set({
+                    ...new Array(14).fill(this.getters.getCurrent)
+                })
             }
             catch(e) {
                 console.log(e)

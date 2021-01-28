@@ -107,4 +107,9 @@ table {
 button {
   margin-left: 10px;
 }
+@media (max-width: 768px) {
+  button {
+    margin-top: 10px;
+  }
+}
 </style>

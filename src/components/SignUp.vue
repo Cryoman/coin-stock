@@ -14,7 +14,7 @@
         class="form-control"
         placeholder="Password"
         required
-        minlength="5"
+        minlength="6"
         v-model="password"
       />
       <input
@@ -25,7 +25,7 @@
         v-model="name"
       />
       <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Sign in
+        Sign up
       </button>
             <router-link to="/">
         &#8592; Back
