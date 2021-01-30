@@ -8,7 +8,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-import {i18n} from './i18n'
+import {i18n} from './i18n';
 
 Vue.mixin({
   filters: {
@@ -29,7 +29,7 @@ const router = new VueRouter({
 });
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1q_QIGRwZXFifxhIzu_XhZpTlAscCxgM",
@@ -43,11 +43,11 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-let app; //Присваивает себе экземпляр Вью, чтобы в дальнейшем повторно не инициализировать приложение *
+let app; 
 
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
-    app = new Vue({ //*
+    app = new Vue({
       store,
       router,
       i18n,

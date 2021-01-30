@@ -1,10 +1,10 @@
 import firebase from 'firebase/app'
 export default {
     actions: {
-        async login(context, {email, password}) { //первым аргументом необходимо передавать контекст, без него работать не будет
+        async login(context, {email, password}) {
             await firebase.auth().signInWithEmailAndPassword(email, password);
         },
-        async registration({dispatch}, {email, password, name, ownAssets = 0, controlPrice = 0}) { //первый аргумент, даже если он один, необходимо передавать в качестве объекта
+        async registration({dispatch}, {email, password, name, ownAssets = 0, controlPrice = 0}) { 
             try {
                 await firebase.auth().createUserWithEmailAndPassword(email, password);
                 const uid = await dispatch('getUid');
@@ -19,7 +19,7 @@ export default {
                 })
             }
             catch(e) {
-                console.log(e)
+                console.log(e);
             }
         },
         async logout({commit}) {

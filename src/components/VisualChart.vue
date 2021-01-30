@@ -26,7 +26,6 @@ export default {
       this.$store.dispatch("drawChart");
     },
     fillData(val) {
-      console.log("Data from chart")
       this.dataCollection = {
         labels: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
         datasets: [

@@ -14,7 +14,6 @@
 import Header from './components/Header';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-
 import getCurrentPrice from "./getCurrentPrice";
 
 export default {

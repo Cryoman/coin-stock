@@ -1,4 +1,4 @@
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 export default {
     state: {
         user: {
@@ -7,7 +7,7 @@ export default {
     },
     getters: {
         user(state) {
-            return state.user
+            return state.user;
         },
         getTotalAssets(state) {
             return state.user.ownAssets * state.currentPrice;
@@ -26,15 +26,15 @@ export default {
             try {
                 const uid = await dispatch('getUid');
                 if(uid) {
-                const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val()
+                const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val();
                 commit('setInfo', info);
                 } else {
-                    commit('setInfo', {role: 'Guest'})
+                    commit('setInfo', {role: 'Guest'});
                 }
                 
             }
             catch(e) {
-                console.log(e)
+                console.log(e);
             }
         }
     }
