@@ -5,6 +5,12 @@
     <p>
       {{ $t("desc") }}
     </p>
+    <p v-if="(!name || name === 'Guest')">
+      <i18n path="descFooter">
+        <router-link to="/signin" place="login">{{$t('loginDesc')}}</router-link>
+        <router-link to="/signup" place="register">{{$t('regDesc')}}</router-link>
+      </i18n>
+    </p>
     <VisualChart v-if="currentData" :currentData="currentData"></VisualChart>
     <div v-else class="d-flex justify-content-center">
       <div class="spinner-border text-info"></div>
@@ -79,6 +85,9 @@ export default {
     },
     dynamic() {
       return this.$store.getters.getDynamic || '-';
+    },
+    name() {
+      return this.$store.getters.user.name;
     },
   },
   methods: {
